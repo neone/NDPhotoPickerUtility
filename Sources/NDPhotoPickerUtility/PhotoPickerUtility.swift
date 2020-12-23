@@ -50,10 +50,10 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(returnedImage: Binding<UIImage?>, showPicker: Bool, pictureSaved: () -> Void) {
+    public init(returnedImage: Binding<UIImage?>, showPicker: Bool, pictureSaved: @escaping () -> Void) {
         self._returnedImage = returnedImage
-        self._showImagePicker = State(initialValue: false)
-        self.pictureSaved = {}
+        self._showImagePicker = State(initialValue: showPicker)
+        self.pictureSaved = pictureSaved
     }
     
     func pickerActived() {
