@@ -52,7 +52,7 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(returnedImage: Binding<UIImage>, showPicker: Bool) {
+    public init(returnedImage: Binding<UIImage>, showPicker: Bool, pictureSaved: () -> Void) {
         self._returnedImage = returnedImage
         self._showImagePicker = State(initialValue: false)
         self.pictureSaved = {}
@@ -158,7 +158,7 @@ public struct PhotoPickerUtility: View {
 
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false)
+        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false, pictureSaved: {})
     }
 
 }
