@@ -21,7 +21,7 @@ public struct PhotoPickerUtility: View {
     
     @State var displayImage: Image?
     @State var selectedImage: UIImage?
-    @Binding var returnedImage: UIImage?
+    @Binding var returnedImage: UIImage
     
     //Zoom and Drag ...
     @State var currentAmount: CGFloat = 0
@@ -50,14 +50,14 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(returnedImage: Binding<UIImage?>, step: Binding<PickProfileSteps>, showPicker: Bool) {
+    public init(returnedImage: Binding<UIImage>, step: Binding<PickProfileSteps>, showPicker: Bool) {
         self._returnedImage = returnedImage
         self._currentStep = step
         self._showImagePicker = State(initialValue: false) 
     }
     
     func pickerActived() {
-        returnedImage = nil
+        returnedImage = UIImage()
         displayImage = nil
         selectedImage = nil
         showImagePicker = true
@@ -154,7 +154,7 @@ public struct PhotoPickerUtility: View {
 
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(returnedImage: .constant(nil), step: .constant(.main), showPicker: false)
+        PhotoPickerUtility(returnedImage: .constant(UIImage()), step: .constant(.main), showPicker: false)
     }
 
 }
