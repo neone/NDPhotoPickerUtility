@@ -129,7 +129,7 @@ extension PhotoPickerUtility {
         }
     }
     
-    func saveCroppedImage() {
+    func saveCroppedImage(_ completion: @escaping () -> Void) {
         
         let scale = (selectedImage?.size.width)! / profileW
         
@@ -138,6 +138,8 @@ extension PhotoPickerUtility {
         let radius = ( UIScreen.main.bounds.width - inset * 2 ) * scale
         
         returnedImage = imageWithImage(image: selectedImage!, croppedTo: CGRect(x: xPos, y: yPos, width: radius, height: radius))
+        
+        completion()
         
         ///Debug maths
         print("Input: w \(inputW) h \(inputH)")
