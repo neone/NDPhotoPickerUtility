@@ -15,11 +15,12 @@ public enum PickProfileSteps {
 }
 
 public struct PhotoPickerUtility: View {
-    @Binding var croppedImage: Image?
-    @Binding var currentStep: PickProfileSteps
     
+    @Binding var currentStep: PickProfileSteps
     @State var showImagePicker: Bool
+    
     @State var profileImage: Image?
+    @Binding var croppedImage: Image?
     @State var inputImage: UIImage?
     
     //Zoom and Drag ...

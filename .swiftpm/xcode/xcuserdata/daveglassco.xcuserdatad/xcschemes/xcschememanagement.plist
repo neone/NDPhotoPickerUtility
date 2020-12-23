@@ -22,6 +22,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>NDPhotoPickerUtility</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>NDPhotoPickerUtilityTests</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>ProfilePickerUtility</key>
 		<dict>
 			<key>primary</key>
