@@ -17,11 +17,15 @@ public enum PhotoPickerUtilityStep {
 public struct PhotoPickerUtility: View {
     
     @Binding var returnedImage: UIImage?
+    @Binding var pictureSaved: Bool
+    @Binding var cancelPressed: Bool
+    @State var showImagePicker: Bool
+    
     @State var displayImage: Image?
     @State var selectedImage: UIImage?
     
     @State var currentStep: PhotoPickerUtilityStep = .main
-    @State var showImagePicker: Bool
+    
     
     //Zoom and Drag ...
     @State var currentAmount: CGFloat = 0
@@ -50,10 +54,11 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(returnedImage: Binding<UIImage?>, showPicker: Bool, pictureSaved: () -> Void) {
+    public init(returnedImage: Binding<UIImage?>, picSaved: Binding<Bool>, cancel: Binding<Bool>, showPicker: Bool) {
         self._returnedImage = returnedImage
+        self._pictureSaved = picSaved
+        self._cancelPressed = cancel
         self._showImagePicker = State(initialValue: false)
-        self.pictureSaved = {}
     }
     
     func pickerActived() {
@@ -63,7 +68,6 @@ public struct PhotoPickerUtility: View {
         showImagePicker = true
     }
     
-    var pictureSaved: () -> Void
     
     public var body: some View {
         ZStack {
@@ -157,7 +161,7 @@ public struct PhotoPickerUtility: View {
 
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false, pictureSaved: {})
+        PhotoPickerUtility(returnedImage: .constant(UIImage()), picSaved: .constant(false), cancel: .constant(false), showPicker: false)
     }
 
 }
