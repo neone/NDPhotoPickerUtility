@@ -128,11 +128,9 @@ extension PhotoPickerUtility {
             resetImageOriginAndScale()
         }
     }
-    
-    func saveCroppedImage(_ completion: @escaping () -> Void) {
-        
+
+    func saveCroppedImage(_ completion: () -> Void) {
         let scale = (selectedImage?.size.width)! / profileW
-        
         let xPos = ( ( ( profileW - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.width * -1 ) ) * scale
         let yPos = ( ( ( profileH - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.height * -1 ) ) * scale
         let radius = ( UIScreen.main.bounds.width - inset * 2 ) * scale
