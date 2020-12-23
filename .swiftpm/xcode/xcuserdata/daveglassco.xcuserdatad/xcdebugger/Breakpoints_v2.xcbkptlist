@@ -23,15 +23,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "72EF21BD-C33B-492C-948B-1CACDE2C928B"
+            uuid = "06534289-787F-4F38-B3EC-2EF96F109643"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sources/NDPhotoPickerUtility/PhotoPickerUtility.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "PhotoPickerUtility"
             landmarkType = "14">
          </BreakpointContent>
