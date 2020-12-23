@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BottomButtonsView: View {
     @Binding var step: PhotoPickerUtilityStep
-    @Binding var inputImage: UIImage?
+    @Binding var selectedImage: UIImage?
     
     var pickerActivated: () -> Void
     var saveFunction: () -> Void
@@ -25,7 +25,6 @@ struct BottomButtonsView: View {
             Spacer()
             
             Button(action: {
-                inputImage = nil
                 pickerActivated()
             }, label: {
                 ShowPhotoPickerButton()
@@ -34,7 +33,7 @@ struct BottomButtonsView: View {
             Spacer()
             Button(
                 action: {
-                    if inputImage != nil {
+                    if selectedImage != nil {
                         saveFunction()
                         step = .main
                     }
@@ -48,7 +47,7 @@ struct BottomButtonsView: View {
 
 struct BottomButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomButtonsView(step: .constant(.main), inputImage: .constant(nil), pickerActivated: {}, saveFunction: {})
+        BottomButtonsView(step: .constant(.main), selectedImage: .constant(nil), pickerActivated: {}, saveFunction: {})
                 .previewLayout(PreviewLayout.sizeThatFits)
                 .padding()
                 .background(Color(.darkGray))

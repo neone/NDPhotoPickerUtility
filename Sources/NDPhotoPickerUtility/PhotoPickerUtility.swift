@@ -17,13 +17,11 @@ public enum PhotoPickerUtilityStep {
 public struct PhotoPickerUtility: View {
     
     @Binding var returnedImage: UIImage
-    
-    @State var currentStep: PhotoPickerUtilityStep = .main
-    @State var showImagePicker: Bool
-    
     @State var displayImage: Image?
     @State var selectedImage: UIImage?
     
+    @State var currentStep: PhotoPickerUtilityStep = .main
+    @State var showImagePicker: Bool
     
     //Zoom and Drag ...
     @State var currentAmount: CGFloat = 0
@@ -99,9 +97,10 @@ public struct PhotoPickerUtility: View {
             }
             
             VStack {
-                Text("Move and Scale")
-                    .foregroundColor(.white)
-                
+                if displayImage != nil {
+                    Text("Move and Scale")
+                        .foregroundColor(.white)
+                }
                 if showFeedback {
                     LiveFeedbackAndImageView(finalAmount: $finalAmount , inputW: $inputW, inputH: $inputH, profileW: $profileW, profileH: $profileH, newPosition: $newPosition)
                 }
@@ -109,7 +108,7 @@ public struct PhotoPickerUtility: View {
                 Spacer()
                 HStack{
                     //Bottom Buttons
-                    BottomButtonsView(step: $currentStep, inputImage: $selectedImage, pickerActivated: pickerActived, saveFunction: saveCroppedImage)
+                    BottomButtonsView(step: $currentStep, selectedImage: $selectedImage, pickerActivated: pickerActived, saveFunction: saveCroppedImage)
                 }
             }
             .padding()
