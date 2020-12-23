@@ -156,7 +156,7 @@ public struct PhotoPickerUtility: View {
 
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false, pictureSaved: {})
+        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false)
     }
 
 }
