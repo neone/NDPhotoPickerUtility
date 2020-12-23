@@ -19,9 +19,9 @@ public struct PhotoPickerUtility: View {
     @Binding var currentStep: PickProfileSteps
     @State var showImagePicker: Bool
     
-    @State var profileImage: Image?
-    @Binding var croppedImage: Image?
-    @State var inputImage: UIImage?
+    @State var displayImage: Image?
+    @State var selectedImage: UIImage?
+    @Binding var returnedImage: UIImage?
     
     //Zoom and Drag ...
     @State var currentAmount: CGFloat = 0
@@ -50,16 +50,16 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(image: Binding<Image?>, step: Binding<PickProfileSteps>, showPicker: Bool) {
-        self._croppedImage = image
+    public init(returnedImage: Binding<UIImage?>, step: Binding<PickProfileSteps>, showPicker: Bool) {
+        self._returnedImage = returnedImage
         self._currentStep = step
         self._showImagePicker = State(initialValue: false) 
     }
     
     func pickerActived() {
-        croppedImage = nil
-        profileImage = nil
-        inputImage = nil
+        returnedImage = nil
+        displayImage = nil
+        selectedImage = nil
         showImagePicker = true
     }
     
@@ -69,8 +69,8 @@ public struct PhotoPickerUtility: View {
             
             //Profile Image
             VStack {
-                if profileImage != nil {
-                    profileImage?
+                if displayImage != nil {
+                    displayImage?
                         .resizable()
                         .scaleEffect(finalAmount + currentAmount)
                         .scaledToFill()
@@ -88,7 +88,7 @@ public struct PhotoPickerUtility: View {
             
             
             //Image Mask
-            if profileImage != nil {
+            if displayImage != nil {
                 Rectangle()
                     .fill(Color.black).opacity(0.55)
                     .mask(HoleShapeMask().fill(style: FillStyle(eoFill: true)))
@@ -105,7 +105,7 @@ public struct PhotoPickerUtility: View {
                 Spacer()
                 HStack{
                     //Bottom Buttons
-                    BottomButtonsView(step: $currentStep, inputImage: $inputImage, pickerActivated: pickerActived, saveFunction: saveCroppedImage)
+                    BottomButtonsView(step: $currentStep, inputImage: $selectedImage, pickerActivated: pickerActived, saveFunction: saveCroppedImage)
                 }
             }
             .padding()
@@ -113,7 +113,7 @@ public struct PhotoPickerUtility: View {
         .edgesIgnoringSafeArea(.all)
         .statusBar(hidden: true)
         .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
-            SystemImagePicker(test: self.$newTest, image: self.$inputImage)
+            SystemImagePicker(test: self.$newTest, image: self.$selectedImage)
                 .accentColor(Color.systemOrange)
         }
         .gesture(
@@ -154,7 +154,7 @@ public struct PhotoPickerUtility: View {
 
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(image: .constant(nil), step: .constant(.main), showPicker: false)
+        PhotoPickerUtility(returnedImage: .constant(nil), step: .constant(.main), showPicker: false)
     }
 
 }

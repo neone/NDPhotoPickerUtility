@@ -12,10 +12,10 @@ extension PhotoPickerUtility {
     
     //MARK: functions
     func loadImage() {
-        guard let inputImage = inputImage else { return }
+        guard let inputImage = selectedImage else { return }
         let w = inputImage.size.width
         let h = inputImage.size.height
-        profileImage = Image(uiImage: inputImage)
+        displayImage = Image(uiImage: inputImage)
         
         inputW = w//.description
         inputH = h//.description
@@ -131,13 +131,13 @@ extension PhotoPickerUtility {
     
     func saveCroppedImage() {
         
-        let scale = (inputImage?.size.width)! / profileW
+        let scale = (selectedImage?.size.width)! / profileW
         
         let xPos = ( ( ( profileW - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.width * -1 ) ) * scale
         let yPos = ( ( ( profileH - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.height * -1 ) ) * scale
         let radius = ( UIScreen.main.bounds.width - inset * 2 ) * scale
         
-        croppedImage = Image(uiImage: imageWithImage(image: inputImage!, croppedTo: CGRect(x: xPos, y: yPos, width: radius, height: radius)))
+        returnedImage = imageWithImage(image: selectedImage!, croppedTo: CGRect(x: xPos, y: yPos, width: radius, height: radius))
         
         
         ///Debug maths

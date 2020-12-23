@@ -10,7 +10,7 @@ import SwiftUI
 struct BottomButtonsView: View {
     @Binding var step: PickProfileSteps
     @Binding var inputImage: UIImage?
-//    @Binding var profileImage: Image?
+//    @Binding var displayImage: Image?
 //    @Binding var isShowingImagePicker: Bool
     
     
