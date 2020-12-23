@@ -9,19 +9,21 @@ import Foundation
 import UIKit
 import SwiftUI
 
-public enum PickProfileSteps {
+public enum PhotoPickerUtilityStep {
     case main
     case utility
 }
 
 public struct PhotoPickerUtility: View {
     
-    @State var currentStep: PickProfileSteps = .main
+    @Binding var returnedImage: UIImage
+    
+    @State var currentStep: PhotoPickerUtilityStep = .main
     @State var showImagePicker: Bool
     
     @State var displayImage: Image?
     @State var selectedImage: UIImage?
-    @Binding var returnedImage: UIImage
+    
     
     //Zoom and Drag ...
     @State var currentAmount: CGFloat = 0
@@ -52,7 +54,7 @@ public struct PhotoPickerUtility: View {
     
     public init(returnedImage: Binding<UIImage>, showPicker: Bool) {
         self._returnedImage = returnedImage
-        self._showImagePicker = State(initialValue: false) 
+        self._showImagePicker = State(initialValue: false)
     }
     
     func pickerActived() {
@@ -61,6 +63,8 @@ public struct PhotoPickerUtility: View {
         selectedImage = nil
         showImagePicker = true
     }
+    
+    var pictureSaved: () -> Void = {}
     
     public var body: some View {
         ZStack {

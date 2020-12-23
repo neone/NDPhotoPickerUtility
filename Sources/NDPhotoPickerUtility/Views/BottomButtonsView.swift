@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct BottomButtonsView: View {
-    @Binding var step: PickProfileSteps
+    @Binding var step: PhotoPickerUtilityStep
     @Binding var inputImage: UIImage?
-//    @Binding var displayImage: Image?
-//    @Binding var isShowingImagePicker: Bool
-    
     
     var pickerActivated: () -> Void
     var saveFunction: () -> Void

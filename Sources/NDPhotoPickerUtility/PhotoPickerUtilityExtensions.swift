@@ -139,6 +139,7 @@ extension PhotoPickerUtility {
         
         returnedImage = imageWithImage(image: selectedImage!, croppedTo: CGRect(x: xPos, y: yPos, width: radius, height: radius))
         
+        pictureSaved()
         
         ///Debug maths
         print("Input: w \(inputW) h \(inputH)")
