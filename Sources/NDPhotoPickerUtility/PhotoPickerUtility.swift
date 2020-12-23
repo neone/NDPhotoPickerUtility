@@ -16,7 +16,7 @@ public enum PickProfileSteps {
 
 public struct PhotoPickerUtility: View {
     
-    @Binding var currentStep: PickProfileSteps
+    @State var currentStep: PickProfileSteps = .main
     @State var showImagePicker: Bool
     
     @State var displayImage: Image?
@@ -50,9 +50,8 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(returnedImage: Binding<UIImage>, step: Binding<PickProfileSteps>, showPicker: Bool) {
+    public init(returnedImage: Binding<UIImage>, showPicker: Bool) {
         self._returnedImage = returnedImage
-        self._currentStep = step
         self._showImagePicker = State(initialValue: false) 
     }
     
@@ -154,7 +153,7 @@ public struct PhotoPickerUtility: View {
 
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(returnedImage: .constant(UIImage()), step: .constant(.main), showPicker: false)
+        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false)
     }
 
 }
