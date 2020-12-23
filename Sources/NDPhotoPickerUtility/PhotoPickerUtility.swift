@@ -16,7 +16,7 @@ public enum PhotoPickerUtilityStep {
 
 public struct PhotoPickerUtility: View {
     
-    @Binding var returnedImage: UIImage
+    @Binding var returnedImage: UIImage?
     @State var displayImage: Image?
     @State var selectedImage: UIImage?
     
@@ -50,7 +50,7 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(returnedImage: Binding<UIImage>, showPicker: Bool, pictureSaved: () -> Void) {
+    public init(returnedImage: Binding<UIImage?>, showPicker: Bool, pictureSaved: () -> Void) {
         self._returnedImage = returnedImage
         self._showImagePicker = State(initialValue: false)
         self.pictureSaved = {}
