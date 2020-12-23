@@ -55,6 +55,7 @@ public struct PhotoPickerUtility: View {
     public init(returnedImage: Binding<UIImage>, showPicker: Bool) {
         self._returnedImage = returnedImage
         self._showImagePicker = State(initialValue: false)
+        self.pictureSaved = {}
     }
     
     func pickerActived() {
@@ -64,7 +65,7 @@ public struct PhotoPickerUtility: View {
         showImagePicker = true
     }
     
-    var pictureSaved: () -> Void = {}
+    var pictureSaved: () -> Void
     
     public var body: some View {
         ZStack {
