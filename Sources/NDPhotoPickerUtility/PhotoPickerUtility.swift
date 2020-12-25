@@ -15,30 +15,23 @@ public enum PhotoPickerUtilityStep {
 }
 
 public struct PhotoPickerUtility: View {
-    
-    @Binding var returnedImage: UIImage?
-    @State var displayImage: Image?
-    @State var selectedImage: UIImage?
-    
+
     @State var currentStep: PhotoPickerUtilityStep = .main
     @State var showImagePicker: Bool
+    @Binding var processedImage: UIImage?
     
+    @State var selectedImage: UIImage?
+    @State var selectedAspectRatio: CGFloat = 0.0
+    
+    @State var displayImage: Image?
+    @State var displayW: CGFloat = 0.0
+    @State var displayH: CGFloat = 0.0
+   
     //Zoom and Drag ...
     @State var currentAmount: CGFloat = 0
     @State var finalAmount: CGFloat = 1
-    
     @State var currentPosition: CGSize = .zero
     @State var newPosition: CGSize = .zero
-    
-    ///Testing stuff
-    var showFeedback = false
-    @State var inputW: CGFloat = 750.5556577
-    @State var inputH: CGFloat = 1336.5556577
-    @State var theAspectRatio: CGFloat = 0.0
-    
-    @State var zoom: CGFloat = 1.00
-    @State var profileW: CGFloat = 0.0
-    @State var profileH: CGFloat = 0.0
     @State var horizontalOffset: CGFloat = 0.0
     @State var verticalOffset: CGFloat = 0.0
     
@@ -47,17 +40,18 @@ public struct PhotoPickerUtility: View {
     let inset: CGFloat = 15
     let screenAspect = UIScreen.main.bounds.width / UIScreen.main.bounds.height
     let aniDuration = 0.2
+    //var showFeedback = false
     
     @State var newTest: Int = 1
     
     public init(returnedImage: Binding<UIImage?>, showPicker: Bool, pictureSaved: @escaping () -> Void) {
-        self._returnedImage = returnedImage
+        self._processedImage = returnedImage
         self._showImagePicker = State(initialValue: showPicker)
         self.pictureSaved = pictureSaved
     }
     
     func pickerActived() {
-        returnedImage = UIImage()
+        processedImage = UIImage()
         displayImage = nil
         selectedImage = nil
         showImagePicker = true
@@ -101,9 +95,11 @@ public struct PhotoPickerUtility: View {
                     Text("Move and Scale")
                         .foregroundColor(.white)
                 }
-                if showFeedback {
-                    LiveFeedbackAndImageView(finalAmount: $finalAmount , inputW: $inputW, inputH: $inputH, profileW: $profileW, profileH: $profileH, newPosition: $newPosition)
-                }
+                
+// Testing code
+//                if showFeedback {
+//                    LiveFeedbackAndImageView(finalAmount: $finalAmount , inputW: $inputW, inputH: $inputH, profileW: $profileW, profileH: $profileH, newPosition: $newPosition)
+//                }
                 
                 Spacer()
                 HStack{
@@ -123,7 +119,7 @@ public struct PhotoPickerUtility: View {
         .edgesIgnoringSafeArea(.all)
         .statusBar(hidden: true)
         .sheet(isPresented: $showImagePicker, onDismiss: loadImage) {
-            SystemImagePicker(test: self.$newTest, image: self.$selectedImage)
+            SystemImagePicker(image: self.$selectedImage)
                 .accentColor(Color.systemOrange)
         }
         .gesture(

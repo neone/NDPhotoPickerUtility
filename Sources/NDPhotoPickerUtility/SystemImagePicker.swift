@@ -14,7 +14,6 @@ import SwiftUI
 
 
     struct SystemImagePicker: UIViewControllerRepresentable {
-        @Binding var test: Int
         
         @Environment(\.presentationMode) var presentationMode
         @Binding var image: UIImage?

@@ -3,7 +3,10 @@
 //  PVPickNCrop
 //
 //  Created by Dave Glassco on 12/17/20.
+//  Evolved from the great work of Poltavets
+//  https://stackoverflow.com/questions/28365819/ios-custom-uiimagepickercontroller-camera-crop-to-circle-in-preview-view/65278767#65278767
 //
+
 
 import Foundation
 import SwiftUI
@@ -17,9 +20,9 @@ extension PhotoPickerUtility {
         let h = inputImage.size.height
         displayImage = Image(uiImage: inputImage)
         
-        inputW = w//.description
-        inputH = h//.description
-        theAspectRatio = w / h
+//        inputW = w//.description
+//        inputH = h//.description
+        selectedAspectRatio = w / h
         
         resetImageOriginAndScale()
     }
@@ -27,12 +30,12 @@ extension PhotoPickerUtility {
     func resetImageOriginAndScale() {
         
         withAnimation(.easeInOut){
-            if theAspectRatio > screenAspect {
-                profileW = UIScreen.main.bounds.width
-                profileH = profileW / theAspectRatio
+            if selectedAspectRatio > screenAspect {
+                displayW = UIScreen.main.bounds.width
+                displayH = displayW / selectedAspectRatio
             } else {
-                profileH = UIScreen.main.bounds.height
-                profileW = profileH * theAspectRatio
+                displayH = UIScreen.main.bounds.height
+                displayW = displayH * selectedAspectRatio
             }
             currentAmount = 0
             finalAmount = 1
@@ -56,18 +59,18 @@ extension PhotoPickerUtility {
         //Screen width
         let w = UIScreen.main.bounds.width
         
-        if theAspectRatio > screenAspect {
-            profileW = UIScreen.main.bounds.width * finalAmount
-            profileH = profileW / theAspectRatio
+        if selectedAspectRatio > screenAspect {
+            displayW = UIScreen.main.bounds.width * finalAmount
+            displayH = displayW / selectedAspectRatio
         } else {
-            profileH = UIScreen.main.bounds.height * finalAmount
-            profileW = profileH * theAspectRatio
+            displayH = UIScreen.main.bounds.height * finalAmount
+            displayW = displayH * selectedAspectRatio
         }
         
         //Screen width * zoom - the screen width / 2
         //shows us how much of the picture now extends t pothe left of the screen.
-        horizontalOffset = (profileW - w ) / 2
-        verticalOffset = ( profileH - w ) / 2
+        horizontalOffset = (displayW - w ) / 2
+        verticalOffset = ( displayH - w ) / 2
         
         if finalAmount > 4.0 {
             withAnimation{
@@ -75,7 +78,7 @@ extension PhotoPickerUtility {
             }
         }
         
-        if profileW >= UIScreen.main.bounds.width {
+        if displayW >= UIScreen.main.bounds.width {
             
             if newPosition.width > horizontalOffset {
                 withAnimation(.easeInOut) {
@@ -98,7 +101,7 @@ extension PhotoPickerUtility {
             }
         }
         
-        if profileH >= UIScreen.main.bounds.width {
+        if displayH >= UIScreen.main.bounds.width {
             
             if newPosition.height > verticalOffset {
                 withAnimation(.easeInOut){
@@ -121,34 +124,34 @@ extension PhotoPickerUtility {
             }
         }
         
-        if profileW < UIScreen.main.bounds.width && theAspectRatio > screenAspect {
+        if displayW < UIScreen.main.bounds.width && selectedAspectRatio > screenAspect {
             resetImageOriginAndScale()
         }
-        if profileH < UIScreen.main.bounds.height && theAspectRatio < screenAspect {
+        if displayH < UIScreen.main.bounds.height && selectedAspectRatio < screenAspect {
             resetImageOriginAndScale()
         }
     }
 
     func saveCroppedImage(_ completion: () -> Void) {
-        let scale = (selectedImage?.size.width)! / profileW
-        let xPos = ( ( ( profileW - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.width * -1 ) ) * scale
-        let yPos = ( ( ( profileH - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.height * -1 ) ) * scale
+        let scale = (selectedImage?.size.width)! / displayW
+        let xPos = ( ( ( displayW - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.width * -1 ) ) * scale
+        let yPos = ( ( ( displayH - UIScreen.main.bounds.width ) / 2 ) + inset + ( currentPosition.height * -1 ) ) * scale
         let radius = ( UIScreen.main.bounds.width - inset * 2 ) * scale
         
-        returnedImage = imageWithImage(image: selectedImage!, croppedTo: CGRect(x: xPos, y: yPos, width: radius, height: radius))
+        processedImage = imageWithImage(image: selectedImage!, croppedTo: CGRect(x: xPos, y: yPos, width: radius, height: radius))
         
         completion()
         
         ///Debug maths
-        print("Input: w \(inputW) h \(inputH)")
-        print("Profile: w \(profileW) h \(profileH)")
-        print("X Origin: \( ( ( profileW - UIScreen.main.bounds.width - inset ) / 2 ) + ( currentPosition.width  * -1 ) )")
-        print("Y Origin: \( ( ( profileH - UIScreen.main.bounds.width - inset) / 2 ) + ( currentPosition.height  * -1 ) )")
-        
-        print("Scale: \(scale)")
-        print("Profile:\(profileW) + \(profileH)" )
-        print("Curent Pos: \(currentPosition.debugDescription)")
-        print("Radius: \(radius)")
-        print("x:\(xPos), y:\(yPos)")
+//        print("Input: w \(inputW) h \(inputH)")
+//        print("Profile: w \(profileW) h \(profileH)")
+//        print("X Origin: \( ( ( profileW - UIScreen.main.bounds.width - inset ) / 2 ) + ( currentPosition.width  * -1 ) )")
+//        print("Y Origin: \( ( ( profileH - UIScreen.main.bounds.width - inset) / 2 ) + ( currentPosition.height  * -1 ) )")
+//        
+//        print("Scale: \(scale)")
+//        print("Profile:\(profileW) + \(profileH)" )
+//        print("Curent Pos: \(currentPosition.debugDescription)")
+//        print("Radius: \(radius)")
+//        print("x:\(xPos), y:\(yPos)")
     }
 }
