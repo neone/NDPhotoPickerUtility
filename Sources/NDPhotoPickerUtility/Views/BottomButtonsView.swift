@@ -13,12 +13,13 @@ struct BottomButtonsView: View {
     
     var pickerActivated: () -> Void
     var saveFunction: () -> Void
-    
-    
+    var cancelFunction: () -> Void
+
     var body: some View {
         HStack {
             Button(
                 action: {
+                    cancelFunction()
                     step = .main
                 },
                 label: { Text("Cancel") })

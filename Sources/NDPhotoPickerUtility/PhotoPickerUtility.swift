@@ -44,10 +44,11 @@ public struct PhotoPickerUtility: View {
     
     @State var newTest: Int = 1
     
-    public init(returnedImage: Binding<UIImage?>, showPicker: Bool, pictureSaved: @escaping () -> Void) {
+    public init(returnedImage: Binding<UIImage?>, showPicker: Bool, pictureSaved: @escaping () -> Void, cancelPressed: @escaping () -> Void) {
         self._processedImage = returnedImage
         self._showImagePicker = State(initialValue: showPicker)
         self.pictureSaved = pictureSaved
+        self.cancelPressed = cancelPressed
     }
     
     func pickerActived() {
@@ -56,7 +57,8 @@ public struct PhotoPickerUtility: View {
         selectedImage = nil
         showImagePicker = true
     }
-    
+
+    var cancelPressed: () -> Void
     var pictureSaved: () -> Void
     
     public var body: some View {
@@ -81,8 +83,7 @@ public struct PhotoPickerUtility: View {
                         .foregroundColor(.gray)
                 }
             }
-            
-            
+
             //Image Mask
             if displayImage != nil {
                 Rectangle()
@@ -100,7 +101,7 @@ public struct PhotoPickerUtility: View {
 //                if showFeedback {
 //                    LiveFeedbackAndImageView(finalAmount: $finalAmount , inputW: $inputW, inputH: $inputH, profileW: $profileW, profileH: $profileH, newPosition: $newPosition)
 //                }
-                
+
                 Spacer()
                 HStack{
                     //Bottom Buttons
@@ -111,7 +112,7 @@ public struct PhotoPickerUtility: View {
                                         saveCroppedImage {
                                             pictureSaved()
                                         }
-                                      })
+                                      }, cancelFunction: cancelPressed)
                 }
             }
             .padding()
@@ -156,16 +157,12 @@ public struct PhotoPickerUtility: View {
     }
 }
 
-
-
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false, pictureSaved: {})
+        PhotoPickerUtility(returnedImage: .constant(UIImage()),
+                           showPicker: false,
+                           pictureSaved: {},
+                           cancelPressed: {})
     }
 
 }
-
-
-
-
-
