@@ -48,7 +48,11 @@ struct BottomButtonsView: View {
 
 struct BottomButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomButtonsView(step: .constant(.main), selectedImage: .constant(nil), pickerActivated: {}, saveFunction: {})
+        BottomButtonsView(step: .constant(.main),
+                          selectedImage: .constant(nil),
+                          pickerActivated: {},
+                          saveFunction: {},
+                          cancelFunction: {})
                 .previewLayout(PreviewLayout.sizeThatFits)
                 .padding()
                 .background(Color(.darkGray))
