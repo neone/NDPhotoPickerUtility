@@ -104,19 +104,7 @@ public struct PhotoPickerUtility: View {
 
                 Spacer()
                 HStack{
-                    //Bottom Buttons
-<<<<<<< HEAD
-                    BottomButtonsView(step: $currentStep, selectedImage: $selectedImage, pickerActivated: pickerActived, saveFunction: {saveCroppedImage { pictureSaved() }})
-=======
-                    BottomButtonsView(step: $currentStep,
-                                      selectedImage: $selectedImage,
-                                      pickerActivated: pickerActived,
-                                      saveFunction: {
-                                        saveCroppedImage {
-                                            pictureSaved()
-                                        }
-                                      }, cancelFunction: cancelPressed)
->>>>>>> f30ea90a1dc220303a334d81089c42694e8bdfe2
+                    BottomButtonsView(step: $currentStep, selectedImage: $selectedImage, pickerActivated: pickerActived, saveFunction: {saveCroppedImage { pictureSaved() }}, cancelFunction: cancelPressed)
                 }
             }
             .padding()
@@ -163,10 +151,7 @@ public struct PhotoPickerUtility: View {
 
 struct ContactPhotoSelectionSheet_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerUtility(returnedImage: .constant(UIImage()),
-                           showPicker: false,
-                           pictureSaved: {},
-                           cancelPressed: {})
+        PhotoPickerUtility(returnedImage: .constant(UIImage()), showPicker: false, pictureSaved: {}, cancelPressed: {})
     }
 
 }
