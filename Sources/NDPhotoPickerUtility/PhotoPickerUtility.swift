@@ -104,14 +104,7 @@ public struct PhotoPickerUtility: View {
                 Spacer()
                 HStack{
                     //Bottom Buttons
-                    BottomButtonsView(step: $currentStep,
-                                      selectedImage: $selectedImage,
-                                      pickerActivated: pickerActived,
-                                      saveFunction: {
-                                        saveCroppedImage {
-                                            pictureSaved()
-                                        }
-                                      })
+                    BottomButtonsView(step: $currentStep, selectedImage: $selectedImage, pickerActivated: pickerActived, saveFunction: {saveCroppedImage { pictureSaved() }})
                 }
             }
             .padding()
