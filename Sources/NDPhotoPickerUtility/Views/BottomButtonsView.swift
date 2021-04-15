@@ -13,12 +13,13 @@ struct BottomButtonsView: View {
     
     var pickerActivated: () -> Void
     var saveFunction: () -> Void
-    
-    
+    var cancelFunction: () -> Void
+
     var body: some View {
         HStack {
             Button(
                 action: {
+                    cancelFunction()
                     step = .main
                 },
                 label: { Text("Cancel") })
@@ -47,7 +48,11 @@ struct BottomButtonsView: View {
 
 struct BottomButtonsView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomButtonsView(step: .constant(.main), selectedImage: .constant(nil), pickerActivated: {}, saveFunction: {})
+        BottomButtonsView(step: .constant(.main),
+                          selectedImage: .constant(nil),
+                          pickerActivated: {},
+                          saveFunction: {},
+                          cancelFunction: {})
                 .previewLayout(PreviewLayout.sizeThatFits)
                 .padding()
                 .background(Color(.darkGray))
